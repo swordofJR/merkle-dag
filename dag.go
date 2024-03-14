@@ -89,7 +89,6 @@ func dfsForSliceFile(hight int, node File, store KVStore, seedId int, h hash.Has
 			h.Write(jsonMarshal)
 			links.Links = append(links.Links, Link{
 				Hash: h.Sum(nil),
-				// 对于link 它size是什么？
 				Size: lens,
 			})
 			typeName := "link"
@@ -109,7 +108,6 @@ func dfsForSliceFile(hight int, node File, store KVStore, seedId int, h hash.Has
 	}
 }
 func sliceFile(node File, store KVStore, h hash.Hash) *Object {
-	// fmt.Println("222222")
 	if len(node.Bytes()) <= 256*1024 {
 		data := node.Bytes()
 		blob := Object{
@@ -131,12 +129,10 @@ func sliceFile(node File, store KVStore, h hash.Hash) *Object {
 	for {
 		hight++
 		tmp /= 4096
-		// fmt.Println(tmp)
 		if tmp == 0 {
 			break
 		}
 	}
-	// fmt.Println(hight)
 	res, _ := dfsForSliceFile(hight, node, store, 0, h)
 	return res
 }
